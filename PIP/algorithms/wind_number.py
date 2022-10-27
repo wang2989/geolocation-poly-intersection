@@ -2,11 +2,14 @@
 # p2 = (-122.0625, 39.60383)
 # p3 = (-122.992, 38.90133)
 # v=[[-123.15532480599389,39.628538026418425],[-119.0541702886981,39.40845421648897],[-122.53717977729988,37.92347617009539],[-123.6189335775142,39.160027074679334],[-123.15532480599389,39.628538026418425]]
-def pip(points: list, v: list) -> list:
-    res =[]
+def pip(points: list, polys: list) -> list:
+    res ={}
     for point in points: 
-        if (windNumber(point, v)!= 0):
-            res.append(point)
+        curPointInPolys = []
+        for v in polys:
+            if (windNumber(point, v)!= 0):
+                curPointInPolys.append(v)
+        res[point] = curPointInPolys
     return res
 def windNumber(p: tuple, v: list) -> int:
     wn =0
