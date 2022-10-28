@@ -21,12 +21,12 @@ def windNumber(p: tuple, v: list) -> int:
             if v[i+1][1] > p[1]:
                 if (isLeft(v[i], v[i+1], p)>0):
                     wn+=1
-                    print(f'current wn:{wn}')
+                    #print(f'current wn:{wn}')
         else:
             if (v[i+1][1] <= p[1]):
                 if (isLeft(v[i], v[i+1], p)) <0:
                     wn-=1
-                    print(f'current wn:{wn}')
+                    #print(f'current wn:{wn}')
   
     return wn
 def isLeft(p0, p1, p2) -> int:
