@@ -8,13 +8,9 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-Install rtree library
+Install all the dependencies
 * pip
   ```sh
-  pip3 intall rtree
+  pip3 -r requirements.txt
   ```
-Install shapely library
-* pip
-  ```sh
-  pip3 intall shapely
-  ```
+
