@@ -53,32 +53,6 @@ def floatLarger(f1, f2):
     else:
         return False 
 
-#using ray casting 
-def isVertexInPolygon(v, list):
-    judgeIndex = 0
-    for i in range(len(list)):
-        j = i + 1
-        minY = min(list[i % len(list)].y, list[j % len(list)].y)
-        maxY = max(list[i % len(list)].y, list[j % len(list)].y)
-        if floatLarger(v.y, maxY) or floatLarger(minY, v.y):
-            continue
-        if floatEqual(maxY, minY):    # on the same horizontal line
-            if floatLarger(v.x, max(list[i % len(list)].x, list[j % len(list)].x)): # point is on the right
-                judgeIndex += 1
-                continue
-            elif floatLarger(min(list[i % len(list)].x, list[j % len(list)].x), v.x): # point is on the left, no intersection
-                continue
-            else:   # point is on the line segment
-                return True
-        # make rays
-        x = (list[i % len(list)].x - list[j % len(list)].x) / (list[i % len(list)].y - list[j % len(list)].y) * (v.y - list[i % len(list)].y) + list[i % len(list)].x
-        if(floatEqual(v.x, x)): # point is on the line
-            return None
-        if floatLarger(v.x, x): # have intersection
-            judgeIndex += 1
-    if judgeIndex % 2 != 0:
-        return True
-    return False
 # get horizontal / vertical intersection 
 def LineCrossH(y, c1, c2):
     return c1.x + (c2.x - c1.x) * (y - c1.y) / (c2.y - c1.y)
@@ -267,59 +241,12 @@ def getX(v):
 def getY(v):
     return v.y
 
-def processNoCross(listS, listC):
-    sInC = isVertexInPolygon(listS[0], listC)
-    if sInC:
-        return listS
-    cInS = isVertexInPolygon(listC[0], listS)
-    if cInS:
-        return listC
-    return []
+
 def toVertexList(polygon) -> list:
     res = []
     for  vertex in polygon:
         res.append(Vertex(vertex[0], vertex[1]))
     return res
-
- 
-def decode(lists):
-    results = []
-    for list in lists:
-        result = ""
-        for v in list:
-            result += "%f %f " % (v.x, v.y)
-        result = result.strip()
-        results.append(result)
-    return results
-
-def transDirect(list):  # change the orientation
-    newList = []
-    for i in range(len(list)):
-        newList.append(list[len(list) - 1 - i])
-    return newList
-
-def toClockwise(list):  # to cw
-    crossPr = []
-    maxX = -1
-    mark_i = -1
-
-    for i in range(len(list)):
-        if list[i].x > maxX:
-            maxX = list[i].x
-            mark_i = i
-    v1 = Vertex(list[mark_i].x - list[mark_i - 1].x, list[mark_i].y - list[mark_i - 1].y)
-    v2 = Vertex(list[(mark_i + 1) % len(list)].x - list[mark_i].x, list[(mark_i + 1) % len(list)].y - list[mark_i].y)
-    crossPr = v1.x * v2.y - v2.x * v1.y
-    while floatEqual(crossPr, 0):
-        mark_i += 1
-        v2 = Vertex(list[(mark_i + 1) % len(list)].x - list[mark_i % len(list)].x,
-                    list[(mark_i + 1) % len(list)].y - list[mark_i % len(list)].y)
-        crossPr = v1.x * v2.y - v2.x * v1.y
-    assert not floatEqual(crossPr, 0)
-    if crossPr < 0:
-        return transDirect(list)
-    else:
-        return list
 
 def process_weiler_atherton(s, c):
     Contour = context.contour_cls
@@ -334,8 +261,7 @@ def process_weiler_atherton(s, c):
     # store all the intersection points
     listS = toVertexList(s)
     listC = toVertexList(c)
-    # listS = toClockwise(listS)
-    # listC = toClockwise(listC)
+
     listI = []  
 
     #connect the linkedList

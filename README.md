@@ -11,6 +11,6 @@ To get a local copy up and running follow these simple example steps.
 Install all the dependencies
 * pip
   ```sh
-  pip3 -r requirements.txt
+  pip3 install -r requirements.txt
   ```
 
