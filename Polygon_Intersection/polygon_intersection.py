@@ -2,6 +2,7 @@ from algorithms.polygon_orientation import orientation
 import sys
 sys.path.insert(0, '../geolocation-poly-intersection')
 from PIP.algorithms import wind_number
+from PIP.algorithms import ray_casting
 from ground.base import get_context
 from bentley_ottmann.planar import contour_self_intersects
 context = get_context()
@@ -34,14 +35,9 @@ def is_vertex_in_polygon_wind(points, polygon):
        if wind_number.windNumber((p[0], p[1]), polygon)!=0:
            res.append(p)   
     return res
+# TODO: fit to kepler.gl
 def to_kepler_format(polys):
-    res = []
-    for poly in polys:
-        temp = []
-        for vertex in poly:
-            temp.append([vertex.x, vertex.y])
-        res.append(temp)
-    return res
+    pass
        
 def floatEqual(f1, f2):
     prec = 1e-5
@@ -284,14 +280,7 @@ def toVertexList(polygon) -> list:
     for  vertex in polygon:
         res.append(Vertex(vertex[0], vertex[1]))
     return res
-def to_kepler_format(polys):
-    res = []
-    for poly in polys:
-        temp = []
-        for vertex in poly:
-            temp.append([vertex.x, vertex.y])
-        res.append(temp)
-    return res
+
  
 def decode(lists):
     results = []
@@ -392,7 +381,7 @@ def process_weiler_atherton(s, c):
     return  deduplicate(res)
 # test cases:
 
-#inner case
+#inner_edge case
 #p1 = [[0,0], [0, 2], [4,2], [4, 0]]
 #p2 = [[0,0], [0, 2], [2,2], [2, 0]]
 #
@@ -410,7 +399,11 @@ def process_weiler_atherton(s, c):
 # self-intersecting case:
 # p1 = [[-118.32347033354482,37.915823646315715],[-118.62364619048267,39.6987057115261],[-117.81940144170606,39.14305825955042]]
 # p2 = [[-118.14789577571362,39.25717331572768],[-117.85904730960365,37.96942215223693],[-118.88417617952292,39.059549302006474],[-117.29267776821159,38.37460362441775]]
+# completely inside case
+#p1 = {"type":"Polygon","coordinates":[[[-113.96516328673505,37.97388222420227],[-114.86248742561979,37.69454255373925],[-114.61359459877593,36.77153806493362],[-113.44772819934865,36.47716675906124],[-112.94339273442792,36.96018241617512],[-113.07438895908288,37.606383533581784],[-113.76866894975281,38.00485464243119]]]}
+# p2 = {"type":"Polygon","coordinates":[[[-114.4956979965866,37.63751043138527],[-114.35160214946644,37.080461177813085],[-113.38223008702141,37.22141486120871],[-113.72937008235637,37.715270640525134]]]}
 # res = process_weiler_atherton(p1, p2)
 # print(len(res))
 # for r in res:
 #      print(r)
+
