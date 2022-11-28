@@ -3,6 +3,10 @@ import time
 import polygon_intersection
 from shapely.geometry import Polygon, mapping
 import math
+import matplotlib.pyplot as plt
+import numpy as np
+ray_casting = []
+wind_number = []
 # inner case
 inside_case_first_poly = [[0,0], [0, 2], [4,2], [4, 0]]
 inside_case_second_poly  = [[0,0], [0, 2], [2,2], [2, 0]]
@@ -24,7 +28,7 @@ self_intersecting_case_second = [[-118.14789577571362,39.25717331572768],[-117.8
 # completely inside case
 completely_inside_case_first = [[-113.96516328673505,37.97388222420227],[-114.86248742561979,37.69454255373925],[-114.61359459877593,36.77153806493362],[-113.44772819934865,36.47716675906124],[-112.94339273442792,36.96018241617512],[-113.07438895908288,37.606383533581784],[-113.76866894975281,38.00485464243119]]
 completely_inside_case_second = [[-114.4956979965866,37.63751043138527],[-114.35160214946644,37.080461177813085],[-113.38223008702141,37.22141486120871],[-113.72937008235637,37.715270640525134]]
-class TestPolygonIntersectionWindNumber(unittest.TestCase):
+class Test_1_PolygonIntersectionWindNumber(unittest.TestCase):
     def setUp(self):
         self.startTime = time.time()
         
@@ -32,39 +36,41 @@ class TestPolygonIntersectionWindNumber(unittest.TestCase):
         t = time.time()-self.startTime
         print('%s: %.6f' % (self.id(),t))
 
-    def test_polygon_intersection_wind_number_inside_case(self):
-        time.sleep(1)
+    def test_1_polygon_intersection_wind_number_inside_case(self):
         test_res = polygon_intersection.process_weiler_atherton(inside_case_first_poly, inside_case_second_poly, 0 )
         expected = getExpected(Polygon(inside_case_first_poly), Polygon(inside_case_second_poly))
         self.assertTrue(isSame(test_res, expected))
+        wind_number.append(time.time()-self.startTime)       
          
-    def test_polygon_intersection_wind_number_convex(self):
-        time.sleep(1)
+    def test_2_polygon_intersection_wind_number_convex(self):
         test_res = polygon_intersection.process_weiler_atherton(convex_case_first_poly, convex_case_second_poly, 0 )
         expected = getExpected(Polygon(convex_case_first_poly), Polygon(convex_case_second_poly))
         self.assertTrue(isSame(test_res, expected))
+        wind_number.append(time.time()-self.startTime)
 
-        
-    def test_polygon_intersection_wind_number_concave(self):
-        time.sleep(1)
+    def test_3_polygon_intersection_wind_number_concave(self):
+
         test_res = polygon_intersection.process_weiler_atherton(concave_case_first_poly, concave_case_second_poly, 0 )
         expected = []
 
         for l in mapping(Polygon(concave_case_first_poly).intersection(Polygon(concave_case_second_poly)))['coordinates']:
             expected= expected + [list((round(x[0], 5),round(x[1], 5))) for x in l[0][:-1]]
         self.assertTrue(isSame(test_res, expected))
+        wind_number.append(time.time()-self.startTime)
     
-    def test_polygon_intersection_wind_number_self_intersecting(self):
-        time.sleep(1)
+    def test_4_polygon_intersection_wind_number_self_intersecting(self):
+
         #test_res = polygon_intersection.process_weiler_atherton(no_intersection_first_poly, no_intersection_second_poly)
         self.assertRaises(TypeError, polygon_intersection.process_weiler_atherton(no_intersection_first_poly, no_intersection_second_poly, 0))
-    
-    def test_polygon_intersection_wind_number_completely_inside(self):
-        time.sleep(1)
+        wind_number.append(time.time()-self.startTime)
+        
+    def test_5_polygon_intersection_wind_number_completely_inside(self):
         test_res = polygon_intersection.process_weiler_atherton(completely_inside_case_first, completely_inside_case_first,0 )
         expected = getExpected(Polygon(completely_inside_case_first), Polygon(completely_inside_case_first))
         self.assertTrue(isSame(test_res, expected))
-class TestPolygonIntersectionRayCasting(unittest.TestCase):
+        wind_number.append(time.time()-self.startTime)
+        
+class Test_2_PolygonIntersectionRayCasting(unittest.TestCase):
     def setUp(self):
         self.startTime = time.time()
         
@@ -72,38 +78,74 @@ class TestPolygonIntersectionRayCasting(unittest.TestCase):
         t = time.time()-self.startTime
         print('%s: %.6f' % (self.id(),t))
 
-    def test_polygon_intersection_ray_casting_inside_case(self):
-        time.sleep(1)
+    def test_1_polygon_intersection_ray_casting_inside_case(self):
+
         test_res = polygon_intersection.process_weiler_atherton(inside_case_first_poly, inside_case_second_poly, 1 )
         expected = getExpected(Polygon(inside_case_first_poly), Polygon(inside_case_second_poly))
         self.assertTrue(isSame(test_res, expected))
+        ray_casting.append(time.time()-self.startTime)  
          
-    def test_polygon_intersection_ray_casting_convex(self):
-        time.sleep(1)
+    def test_2_polygon_intersection_ray_casting_convex(self):
+
         test_res = polygon_intersection.process_weiler_atherton(convex_case_first_poly, convex_case_second_poly, 1 )
         expected = getExpected(Polygon(convex_case_first_poly), Polygon(convex_case_second_poly))
         self.assertTrue(isSame(test_res, expected))
-
-        
-    def test_polygon_intersection_ray_casting_concave(self):
-        time.sleep(1)
+        ray_casting.append(time.time()-self.startTime)  
+         
+    def test_3_polygon_intersection_ray_casting_concave(self):
+   
         test_res = polygon_intersection.process_weiler_atherton(concave_case_first_poly, concave_case_second_poly, 1 )
         expected = []
 
         for l in mapping(Polygon(concave_case_first_poly).intersection(Polygon(concave_case_second_poly)))['coordinates']:
             expected= expected + [list((round(x[0], 5),round(x[1], 5))) for x in l[0][:-1]]
         self.assertTrue(isSame(test_res, expected))
+        ray_casting.append(time.time()-self.startTime)  
     
-    def test_polygon_intersection_ray_casting_self_intersecting(self):
-        time.sleep(1)
+    def test_4_polygon_intersection_ray_casting_self_intersecting(self):
         #test_res = polygon_intersection.process_weiler_atherton(no_intersection_first_poly, no_intersection_second_poly)
         self.assertRaises(TypeError, polygon_intersection.process_weiler_atherton(no_intersection_first_poly, no_intersection_second_poly, 1))
-    
-    def test_polygon_intersection_ray_casting_completely_inside(self):
-        time.sleep(1)
+        ray_casting.append(time.time()-self.startTime)  
+        
+    def test_5_polygon_intersection_ray_casting_completely_inside(self):
         test_res = polygon_intersection.process_weiler_atherton(completely_inside_case_first, completely_inside_case_first, 1 )
         expected = getExpected(Polygon(completely_inside_case_first), Polygon(completely_inside_case_first))
         self.assertTrue(isSame(test_res, expected))
+        ray_casting.append(time.time()-self.startTime)  
+        
+class Test_3_draw_chart(unittest.TestCase):
+    def setUp(self):
+        self.startTime = time.time()
+        
+    def tearDown(self):
+        t = time.time()-self.startTime
+    def test_draw(self):
+        langs = ['Inside_case', 'Convex','Concave','self_intersecting','completely_inside']
+        barWidth = 0.25
+        fig = plt.subplots(figsize =(12, 8))
+        
+        # Set position of bar on X axis
+        br1 = np.arange(len(ray_casting))
+        br2 = [x + barWidth for x in br1]
+
+        
+        # Make the plot
+        plt.bar(br1, ray_casting, color ='r', width = barWidth,
+                edgecolor ='grey', label ='rc')
+        plt.bar(br2, wind_number, color ='g', width = barWidth,
+                edgecolor ='grey', label ='wd')
+
+        
+        # Adding Xticks
+        plt.xlabel('Algorithms', fontweight ='bold', fontsize = 15)
+        plt.ylabel('Time(s)', fontweight ='bold', fontsize = 15)
+        plt.xticks([r + barWidth for r in range(len(ray_casting))],
+                langs)
+        
+        plt.legend()
+        plt.show()
+
+        plt.close()
 
 def isSame(actual, expected)-> bool:
         actual = [[round(x[0], 5), round(x[1], 5)]for x in actual]

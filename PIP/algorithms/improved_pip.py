@@ -1,10 +1,10 @@
 from shapely.geometry import Polygon, Point
-from algorithms import r_tree as rtree
+from PIP.algorithms import r_tree as rtree
 
 # using r tree to store spatial data
 class PipImproved():
-    def __init__(self, ply):
-        self.Rtree = rtree.build_rtree(ply)
+    def __init__(self, plys):
+        self.Rtree = rtree.build_rtree(plys)
         
     def pip(self, points: list) -> list :
         res = {}
