@@ -1,11 +1,5 @@
 # geolocation-poly-intersection
 
-<<<<<<< HEAD
-**README TO-DO**
-- Add description of project
-- Add pulling instructions
-- Add algorithm description sections
-=======
 <!-- GETTING STARTED -->
 ## Getting Started
 
@@ -20,4 +14,3 @@ Install all the dependencies
   pip3 install -r requirements.txt
   ```
 
->>>>>>> point_in_poly
