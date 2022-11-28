@@ -12,6 +12,7 @@ import json
 import matplotlib.pyplot as plt
 import numpy as np
 
+# Polygon structures used for test cases
 l = [(-122.0045, 40.0335),(-122.0625, 39.60383),(-122.992, 38.90133)]
 ply1 = [[[-123.15532480599389,39.628538026418425],[-119.0541702886981,39.40845421648897],[-122.53717977729988,37.92347617009539],[-123.6189335775142,39.160027074679334]]]
 ply2 =[[[-120.91522668758174,37.03968992268706],[-121.02735067562631,35.988375676058794],[-119.6725191534244,35.19819855126699],[-119.75661214445758,36.98746397296957],]
@@ -26,6 +27,7 @@ ply3 =[[[-120.91522668758174,37.03968992268706],[-121.02735067562631,35.98837567
 columbus_poly =[[[-82.94713752299221,40.012085242026195],[-82.98723463591321,39.9740518390705],[-82.98659817380349,39.94478096464229],[-82.946501060882,39.915009398900104],[-82.89749347842276,39.95600294742564],[-82.946501060882,39.96917423012789],[-82.94713752299221,40.012085242026195]]]
 #test = pip(l, ply)
 
+# Declaring and initializing additional test variables
 small_size =[]
 large_size =[]
 large_size_cbus = []
@@ -49,16 +51,16 @@ columbus_points =[]
 for i, x in enumerate(x):
     if(x == 0):continue
     columbus_points.append((y[i], x)) 
-################################## Load JSON FILE ######################## 
+
+# Load JSON File
 f = open('data/cleaned_polygon_geojson.json')
 poly_json =json.load(f)
 columbus_polygons = [x['geometry']['coordinates'][0] for x in poly_json['features']]
 # poly1 = poly_json['features'][0]['geometry']['coordinates'][0]
 #print(len([x['geometry']['coordinates'][0] for x in poly_json['features']]))
 
-########################################################################## 
 
-##################################TEST FRAME######################################## 
+# Test Framework
 class Test_1_RayCasting(unittest.TestCase):
     def setUp(self):
         self.startTime = time.time()

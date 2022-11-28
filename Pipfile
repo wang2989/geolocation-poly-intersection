@@ -9,6 +9,7 @@ bentley-ottmann = "==7.3.0"
 rtree = "==1.0.1"
 shapely = "==1.8.5.post1"
 selenium = "*"
+matplotlib = "*"
 
 [dev-packages]
 
