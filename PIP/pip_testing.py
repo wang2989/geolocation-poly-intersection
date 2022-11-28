@@ -108,7 +108,9 @@ class TestWindNumber(unittest.TestCase):
 
 
 class TestImproved(unittest.TestCase):
+    
     def setUp(self):
+        self.test = PipImproved([ply1[0], ply2[0], ply3[0], columbus_poly[0]])
         self.startTime = time.time()
         
     def tearDown(self):
@@ -118,9 +120,9 @@ class TestImproved(unittest.TestCase):
     def test_improved_small_size(self):
         # polys = [Polygon(t) for t in ply]
         # RTree = rtree.build_rtree(polys)
-        test =  PipImproved(ply1)
+        #test =  PipImproved(ply1)
         time.sleep(1)
-        y_actual = test.pip(l)
+        y_actual = self.test.pip(l)
 
         diff = accuracy.get_accuracy(l, ply1, y_actual)
         print(f'Difference between expected result: {diff}')
