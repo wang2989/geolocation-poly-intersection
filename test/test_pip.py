@@ -1,9 +1,5 @@
 import sys
-<<<<<<< HEAD:src/point-in-polygon/pip_testing.py
-import os
-=======
 sys.path.insert(0, '../geolocation-poly-intersection/src/PIP')
->>>>>>> point_in_poly:test/test_pip.py
 from algorithms.improved_pip import PipImproved
 from algorithms.point_in_poly import PointInPoly as pip
 import unittest
@@ -29,21 +25,12 @@ ply3 =[[[-120.91522668758174,37.03968992268706],[-121.02735067562631,35.98837567
        ,[[-119.52301608426491,38.53004176621298],[-119.38859775116038,37.26976643399039],[-118.15511187090418,36.821689307762114]]]
 columbus_poly =[[[-82.94713752299221,40.012085242026195],[-82.98723463591321,39.9740518390705],[-82.98659817380349,39.94478096464229],[-82.946501060882,39.915009398900104],[-82.89749347842276,39.95600294742564],[-82.946501060882,39.96917423012789],[-82.94713752299221,40.012085242026195]]]
 #test = pip(l, ply)
-<<<<<<< HEAD:src/point-in-polygon/pip_testing.py
-ray_casting_time =[]
-wind_number_time =[]
-r_tree_time =[]
-current_dir = os.path.dirname(__file__)
-csv_path = os.path.join(current_dir, '../../data/kepler.gl_new_dataset.csv')
-my_csv = pd.read_csv(csv_path, usecols=['Latitude','Longitude'])
-=======
 
 small_size =[]
 large_size =[]
 large_size_cbus = []
 large_size_cbus_multiple_polygons =[]
 my_csv = pd.read_csv('data/kepler.gl_new_dataset.csv', usecols=['Latitude','Longitude'])
->>>>>>> point_in_poly:test/test_pip.py
 x = my_csv['Latitude']
 y = my_csv['Longitude']
 points =[]
