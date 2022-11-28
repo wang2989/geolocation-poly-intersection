@@ -1,8 +1,10 @@
-from algorithms.polygon_orientation import orientation
 import sys
-sys.path.insert(0, '../geolocation-poly-intersection')
+sys.path.insert(0, '../geolocation-poly-intersection/src')
 from PIP.algorithms import wind_number
 from PIP.algorithms import ray_casting
+from Polygon_Intersection.algorithms.polygon_orientation import orientation
+# from PIP.algorithms import improved_pip
+
 from ground.base import get_context
 from bentley_ottmann.planar import contour_self_intersects
 context = get_context()
@@ -41,6 +43,7 @@ def is_vertex_in_polygon_ray_casting(points, polygon):
        if ray_casting.is_inside_polygon((p[0], p[1]), polygon):
            res.append(p)   
     return res
+
 # TODO: fit to kepler.gl
 def to_kepler_format(polys):
     pass
@@ -306,15 +309,17 @@ def process_weiler_atherton(s, c, pipAlgo):
     if pipAlgo == 1:
         pipOne = is_vertex_in_polygon_ray_casting(s, c)
         pipTwo = is_vertex_in_polygon_ray_casting(c, s) 
-    if pipAlgo == 2:
-        pipOne = is_vertex_in_polygon_ray_casting(s, c)
-        pipTwo = is_vertex_in_polygon_ray_casting(c, s) 
+ 
     res = Compose(listI)
     if(len(pipOne)!=0):
         res = res + pipOne
     if(len(pipTwo)!=0):
         res = res +  pipTwo
     return  deduplicate(res)
+
+def process_r_tree(poly1, poly2):
+    pass
+    
 # test cases:
 
 #inner_edge case
