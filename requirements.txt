@@ -1,0 +1,4 @@
+bentley-ottmann==7.3.0
+Rtree==1.0.1
+shapely==1.8.5.post1
+
