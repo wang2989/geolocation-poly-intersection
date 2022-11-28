@@ -23,8 +23,10 @@ def get_intersection_func(rtree_index):
     MIN_SIZE = 0.000001
     def intersection_func(point):
         # Inflate the point, since the RTree expects boxes:
+
         pbox = (point[0]-MIN_SIZE, point[1]-MIN_SIZE, 
                 point[0]+MIN_SIZE, point[1]+MIN_SIZE)
+        
         hits = rtree_index.intersection(pbox, objects='raw')
         #Filter false positives:
         result = [pol for pol in hits if Polygon(pol).intersects(Point(point)) ]

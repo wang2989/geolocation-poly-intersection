@@ -20,6 +20,7 @@ ply3 =[[[-120.91522668758174,37.03968992268706],[-121.02735067562631,35.98837567
        [[-123.02980205324052,39.24888199618645],[-122.15189129718004,38.19034135855964],[-121.36975262359891,39.31066007301397]]
        , [[-120.23644964759379,39.19942031567585],[-118.11350181930217,38.91433976723213],[-120.28433568883335,38.715344605330465],[-121.70495491227662,37.44640255810604]]
        ,[[-119.52301608426491,38.53004176621298],[-119.38859775116038,37.26976643399039],[-118.15511187090418,36.821689307762114]]]
+columbus_poly =[[[-82.94713752299221,40.012085242026195],[-82.98723463591321,39.9740518390705],[-82.98659817380349,39.94478096464229],[-82.946501060882,39.915009398900104],[-82.89749347842276,39.95600294742564],[-82.946501060882,39.96917423012789],[-82.94713752299221,40.012085242026195]]]
 #test = pip(l, ply)
 ray_casting_time =[]
 wind_number_time =[]
@@ -31,8 +32,20 @@ x = my_csv['Latitude']
 y = my_csv['Longitude']
 points =[]
 for i, x in enumerate(x):
-  points.append((y[i], x))  
+    points.append((y[i], x))  
 
+my_csv = pd.read_csv('PIP/cleaned_crash_stats.csv', usecols=['Latitude','Longitude'])
+dataframe = pd.DataFrame(my_csv)
+dataframe = dataframe.fillna(0)
+
+x = dataframe['Latitude'].astype(float)
+y = dataframe['Longitude'].astype(float)
+
+columbus_points =[]
+
+for i, x in enumerate(x):
+    if(x == 0):continue
+    columbus_points.append((y[i], x))  
 
 class TestRayCasting(unittest.TestCase):
     def setUp(self):
@@ -57,14 +70,14 @@ class TestRayCasting(unittest.TestCase):
         diff =accuracy.get_accuracy(points, ply2, y_actual)
         print(f'Difference between expected result: {diff}')
         
-    def test_ray_casting_large_size2(self):
+    def test_ray_casting_large_size2_columbus_area(self):
         time.sleep(1)
-        test = pip(points, ply3)
+        test = pip(columbus_points, columbus_poly)
         y_actual =test.rayCasting()  
-        diff =accuracy.get_accuracy(points, ply3, y_actual)  
+        diff =accuracy.get_accuracy(columbus_points, columbus_poly, y_actual)  
         print(f'Difference between expected result: {diff}')
     
-class TestWindNumber(unittest.TestCase):
+class TestWindNumber(unittest.TestCase):      
     def setUp(self):
         self.startTime = time.time()
         
@@ -76,6 +89,7 @@ class TestWindNumber(unittest.TestCase):
         time.sleep(1)
         test = pip(l, ply1)
         y_actual = test.windNumber() 
+        
         diff = accuracy.get_accuracy(l, ply1, y_actual)
         print(f'Difference between expected result: {diff}')
         
@@ -86,11 +100,13 @@ class TestWindNumber(unittest.TestCase):
         diff =accuracy.get_accuracy(points, ply2, y_actual)
         print(f'Difference between expected result: {diff}')
         
-    def test_wind_number_large_size2(self):
+    def test_wind_number_large_size2_columbus_area(self):
         time.sleep(1)
-        test = pip(points, ply3)
+        test = pip(columbus_points, columbus_poly)
         y_actual = test.windNumber()
-        diff =accuracy.get_accuracy(points, ply3, y_actual)  
+        points = pd.DataFrame([[x[0], x[1]] for x in y_actual], columns=['Latitude','Longitude'])
+        points.to_csv('PIP_columbus_area.csv',index = False)
+        diff =accuracy.get_accuracy(columbus_points, columbus_poly, y_actual)  
         print(f'Difference between expected result: {diff}')
 
 
@@ -120,13 +136,11 @@ class TestImproved(unittest.TestCase):
         diff =accuracy.get_accuracy(points, ply2, y_actual)
         print(f'Difference between expected result: {diff}')
     
-    def test_improved_large_size2(self):
-        test =  PipImproved(ply3)
+    def test_improved_large_size2_columbus_area(self):
+        test =  PipImproved(columbus_poly)
         time.sleep(1)
-        y_actual = test.pip(points)
-        diff =accuracy.get_accuracy(points, ply3, y_actual)  
+        y_actual = test.pip(columbus_points)
+        diff =accuracy.get_accuracy(columbus_points, columbus_poly, y_actual)  
         print(f'Difference between expected result: {diff}')
-     
-      
-  
+        
 unittest.main()

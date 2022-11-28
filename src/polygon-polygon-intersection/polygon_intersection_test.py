@@ -34,20 +34,20 @@ class TestPolygonIntersectionWindNumber(unittest.TestCase):
 
     def test_polygon_intersection_wind_number_inside_case(self):
         time.sleep(1)
-        test_res = polygon_intersection.process_weiler_atherton(inside_case_first_poly, inside_case_second_poly )
+        test_res = polygon_intersection.process_weiler_atherton(inside_case_first_poly, inside_case_second_poly, 0 )
         expected = getExpected(Polygon(inside_case_first_poly), Polygon(inside_case_second_poly))
         self.assertTrue(isSame(test_res, expected))
          
     def test_polygon_intersection_wind_number_convex(self):
         time.sleep(1)
-        test_res = polygon_intersection.process_weiler_atherton(convex_case_first_poly, convex_case_second_poly )
+        test_res = polygon_intersection.process_weiler_atherton(convex_case_first_poly, convex_case_second_poly, 0 )
         expected = getExpected(Polygon(convex_case_first_poly), Polygon(convex_case_second_poly))
         self.assertTrue(isSame(test_res, expected))
 
         
     def test_polygon_intersection_wind_number_concave(self):
         time.sleep(1)
-        test_res = polygon_intersection.process_weiler_atherton(concave_case_first_poly, concave_case_second_poly )
+        test_res = polygon_intersection.process_weiler_atherton(concave_case_first_poly, concave_case_second_poly, 0 )
         expected = []
 
         for l in mapping(Polygon(concave_case_first_poly).intersection(Polygon(concave_case_second_poly)))['coordinates']:
@@ -57,14 +57,53 @@ class TestPolygonIntersectionWindNumber(unittest.TestCase):
     def test_polygon_intersection_wind_number_self_intersecting(self):
         time.sleep(1)
         #test_res = polygon_intersection.process_weiler_atherton(no_intersection_first_poly, no_intersection_second_poly)
-        self.assertRaises(TypeError, polygon_intersection.process_weiler_atherton(no_intersection_first_poly, no_intersection_second_poly))
+        self.assertRaises(TypeError, polygon_intersection.process_weiler_atherton(no_intersection_first_poly, no_intersection_second_poly, 0))
     
     def test_polygon_intersection_wind_number_completely_inside(self):
         time.sleep(1)
-        test_res = polygon_intersection.process_weiler_atherton(completely_inside_case_first, completely_inside_case_first )
+        test_res = polygon_intersection.process_weiler_atherton(completely_inside_case_first, completely_inside_case_first,0 )
         expected = getExpected(Polygon(completely_inside_case_first), Polygon(completely_inside_case_first))
         self.assertTrue(isSame(test_res, expected))
- 
+class TestPolygonIntersectionRayCasting(unittest.TestCase):
+    def setUp(self):
+        self.startTime = time.time()
+        
+    def tearDown(self):
+        t = time.time()-self.startTime
+        print('%s: %.6f' % (self.id(),t))
+
+    def test_polygon_intersection_ray_casting_inside_case(self):
+        time.sleep(1)
+        test_res = polygon_intersection.process_weiler_atherton(inside_case_first_poly, inside_case_second_poly, 1 )
+        expected = getExpected(Polygon(inside_case_first_poly), Polygon(inside_case_second_poly))
+        self.assertTrue(isSame(test_res, expected))
+         
+    def test_polygon_intersection_ray_casting_convex(self):
+        time.sleep(1)
+        test_res = polygon_intersection.process_weiler_atherton(convex_case_first_poly, convex_case_second_poly, 1 )
+        expected = getExpected(Polygon(convex_case_first_poly), Polygon(convex_case_second_poly))
+        self.assertTrue(isSame(test_res, expected))
+
+        
+    def test_polygon_intersection_ray_casting_concave(self):
+        time.sleep(1)
+        test_res = polygon_intersection.process_weiler_atherton(concave_case_first_poly, concave_case_second_poly, 1 )
+        expected = []
+
+        for l in mapping(Polygon(concave_case_first_poly).intersection(Polygon(concave_case_second_poly)))['coordinates']:
+            expected= expected + [list((round(x[0], 5),round(x[1], 5))) for x in l[0][:-1]]
+        self.assertTrue(isSame(test_res, expected))
+    
+    def test_polygon_intersection_ray_casting_self_intersecting(self):
+        time.sleep(1)
+        #test_res = polygon_intersection.process_weiler_atherton(no_intersection_first_poly, no_intersection_second_poly)
+        self.assertRaises(TypeError, polygon_intersection.process_weiler_atherton(no_intersection_first_poly, no_intersection_second_poly, 1))
+    
+    def test_polygon_intersection_ray_casting_completely_inside(self):
+        time.sleep(1)
+        test_res = polygon_intersection.process_weiler_atherton(completely_inside_case_first, completely_inside_case_first, 1 )
+        expected = getExpected(Polygon(completely_inside_case_first), Polygon(completely_inside_case_first))
+        self.assertTrue(isSame(test_res, expected))
 
 def isSame(actual, expected)-> bool:
         actual = [[round(x[0], 5), round(x[1], 5)]for x in actual]
