@@ -1,4 +1,5 @@
 import sys
+import os
 from algorithms.improved_pip import PipImproved
 from algorithms.point_in_poly import PointInPoly as pip
 import unittest
@@ -23,7 +24,9 @@ ply3 =[[[-120.91522668758174,37.03968992268706],[-121.02735067562631,35.98837567
 ray_casting_time =[]
 wind_number_time =[]
 r_tree_time =[]
-my_csv = pd.read_csv('PIP/kepler.gl_new_dataset.csv', usecols=['Latitude','Longitude'])
+current_dir = os.path.dirname(__file__)
+csv_path = os.path.join(current_dir, '../../data/kepler.gl_new_dataset.csv')
+my_csv = pd.read_csv(csv_path, usecols=['Latitude','Longitude'])
 x = my_csv['Latitude']
 y = my_csv['Longitude']
 points =[]
