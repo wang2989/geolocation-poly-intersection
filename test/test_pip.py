@@ -130,7 +130,7 @@ class Test_2_WindNumber(unittest.TestCase):
         time.sleep(1)
         test = pip(columbus_points, columbus_poly)
         y_actual = test.windNumber()
-        points = pd.DataFrame([[x[0], x[1]] for x in y_actual], columns=['Latitude','Longitude'])
+        points = pd.DataFrame([[x[1], x[0]] for x in y_actual], columns=['Latitude','Longitude'])
         points.to_csv('PIP_columbus_area.csv',index = False)
         diff =accuracy.get_accuracy(columbus_points, columbus_poly, y_actual)  
         print(f'Difference between expected result: {diff}')
