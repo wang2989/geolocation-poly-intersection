@@ -29,10 +29,16 @@ class Intersection(baseVertex):
         self.crossDi = crossDi # -1: undefined, 0: in 1:out
         self.used = False
         
-def is_vertex_in_polygon_wind(points, polygon):
+def is_vertex_in_polygon_wind_number(points, polygon):
     res = []
     for p in points:
        if wind_number.windNumber((p[0], p[1]), polygon)!=0:
+           res.append(p)   
+    return res
+def is_vertex_in_polygon_ray_casting(points, polygon):
+    res = []
+    for p in points:
+       if ray_casting.is_inside_polygon((p[0], p[1]), polygon):
            res.append(p)   
     return res
 # TODO: fit to kepler.gl
@@ -241,14 +247,13 @@ def getX(v):
 def getY(v):
     return v.y
 
-
 def toVertexList(polygon) -> list:
     res = []
     for  vertex in polygon:
         res.append(Vertex(vertex[0], vertex[1]))
     return res
 
-def process_weiler_atherton(s, c):
+def process_weiler_atherton(s, c, pipAlgo):
     Contour = context.contour_cls
     if (contour_self_intersects(Contour([ Point(x[0], x[1]) for x in s])) or
        contour_self_intersects(Contour([ Point(x[0], x[1]) for x in c]))):
@@ -261,7 +266,6 @@ def process_weiler_atherton(s, c):
     # store all the intersection points
     listS = toVertexList(s)
     listC = toVertexList(c)
-
     listI = []  
 
     #connect the linkedList
@@ -296,9 +300,15 @@ def process_weiler_atherton(s, c):
         for i in range(len(intersections) - 1):
             intersections[i].nextC = intersections[i + 1]
         intersections[len(intersections) - 1].nextC = s2
-
-    pipOne = is_vertex_in_polygon_wind(s, c)
-    pipTwo = is_vertex_in_polygon_wind(c, s)
+    if pipAlgo == 0:
+        pipOne = is_vertex_in_polygon_wind_number(s, c)
+        pipTwo = is_vertex_in_polygon_wind_number(c, s) 
+    if pipAlgo == 1:
+        pipOne = is_vertex_in_polygon_ray_casting(s, c)
+        pipTwo = is_vertex_in_polygon_ray_casting(c, s) 
+    if pipAlgo == 2:
+        pipOne = is_vertex_in_polygon_ray_casting(s, c)
+        pipTwo = is_vertex_in_polygon_ray_casting(c, s) 
     res = Compose(listI)
     if(len(pipOne)!=0):
         res = res + pipOne
