@@ -1,9 +1,9 @@
-from algorithms.polygon_orientation import orientation
 import sys
-sys.path.insert(0, '../geolocation-poly-intersection')
+sys.path.insert(0, '../geolocation-poly-intersection/src')
 from PIP.algorithms import wind_number
 from PIP.algorithms import ray_casting
-from PIP.algorithms import improved_pip
+from Polygon_Intersection.algorithms.polygon_orientation import orientation
+# from PIP.algorithms import improved_pip
 
 from ground.base import get_context
 from bentley_ottmann.planar import contour_self_intersects

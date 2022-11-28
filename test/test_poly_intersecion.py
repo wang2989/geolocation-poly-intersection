@@ -1,6 +1,8 @@
 import unittest
 import time
-import polygon_intersection
+import sys
+sys.path.insert(0, '../geolocation-poly-intersection/src')
+from Polygon_Intersection import polygon_intersection
 from shapely.geometry import Polygon, mapping
 import math
 import matplotlib.pyplot as plt
@@ -112,8 +114,17 @@ class Test_2_PolygonIntersectionRayCasting(unittest.TestCase):
         expected = getExpected(Polygon(completely_inside_case_first), Polygon(completely_inside_case_first))
         self.assertTrue(isSame(test_res, expected))
         ray_casting.append(time.time()-self.startTime)  
+
+class Test_3_multiple_polygons(unittest.TestCase):
+    def setUp(self):
+        self.startTime = time.time()
         
-class Test_3_draw_chart(unittest.TestCase):
+    def tearDown(self):
+        t = time.time()-self.startTime
+        
+    def test_1_rc(self):
+        pass
+class Test_4_draw_chart(unittest.TestCase):
     def setUp(self):
         self.startTime = time.time()
         

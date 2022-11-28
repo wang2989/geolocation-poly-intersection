@@ -1,5 +1,5 @@
 from shapely.geometry import Polygon, Point
-from PIP.algorithms import r_tree as rtree
+from algorithms import r_tree as rtree
 
 # using r tree to store spatial data
 class PipImproved():

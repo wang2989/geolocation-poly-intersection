@@ -1,4 +1,5 @@
 import sys
+sys.path.insert(0, '../geolocation-poly-intersection/src/PIP')
 from algorithms.improved_pip import PipImproved
 from algorithms.point_in_poly import PointInPoly as pip
 import unittest
@@ -29,14 +30,14 @@ small_size =[]
 large_size =[]
 large_size_cbus = []
 large_size_cbus_multiple_polygons =[]
-my_csv = pd.read_csv('PIP/kepler.gl_new_dataset.csv', usecols=['Latitude','Longitude'])
+my_csv = pd.read_csv('data/kepler.gl_new_dataset.csv', usecols=['Latitude','Longitude'])
 x = my_csv['Latitude']
 y = my_csv['Longitude']
 points =[]
 for i, x in enumerate(x):
     points.append((y[i], x))  
 
-my_csv = pd.read_csv('PIP/cleaned_crash_stats.csv', usecols=['Latitude','Longitude'])
+my_csv = pd.read_csv('data/cleaned_crash_stats.csv', usecols=['Latitude','Longitude'])
 dataframe = pd.DataFrame(my_csv)
 dataframe = dataframe.fillna(0)
 
@@ -49,7 +50,7 @@ for i, x in enumerate(x):
     if(x == 0):continue
     columbus_points.append((y[i], x)) 
 ################################## Load JSON FILE ######################## 
-f = open('PIP/cleaned_polygon_geojson.json')
+f = open('data/cleaned_polygon_geojson.json')
 poly_json =json.load(f)
 columbus_polygons = [x['geometry']['coordinates'][0] for x in poly_json['features']]
 # poly1 = poly_json['features'][0]['geometry']['coordinates'][0]
