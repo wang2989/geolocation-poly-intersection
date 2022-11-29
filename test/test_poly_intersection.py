@@ -3,6 +3,7 @@ import time
 import sys
 sys.path.insert(0, '../geolocation-poly-intersection/src')
 from Polygon_Intersection import polygon_intersection
+from Polygon_Intersection import vertex_in_polygon_intersection as vipi
 from shapely.geometry import Polygon, mapping
 import math
 import matplotlib.pyplot as plt
@@ -150,6 +151,42 @@ class Test_3_draw_chart(unittest.TestCase):
         
         plt.legend()
         plt.savefig('test/graphs/poly_intersection_v1_graph.png')
+
+class Test_5_PolygonIntersectionWindNumber(unittest.TestCase):
+    def setUp(self):
+        self.startTime = time.time()
+        
+    def tearDown(self):
+        t = time.time()-self.startTime
+        print('Runtime: %.6f' % (t))
+
+    def test_1_polygon_intersection_vertex_in_polygon_inside_case(self):
+        test_res = vipi.vertex_in_polygon(inside_case_first_poly, inside_case_second_poly)
+        expected = getExpected(Polygon(inside_case_first_poly), Polygon(inside_case_second_poly))
+        self.assertTrue(isSame(test_res, expected))
+        wind_number.append(time.time()-self.startTime)       
+         
+    def test_2_polygon_intersection_vertex_in_polygon_convex(self):
+        test_res = vipi.vertex_in_polygon(convex_case_first_poly, convex_case_second_poly)
+        expected = getExpected(Polygon(convex_case_first_poly), Polygon(convex_case_second_poly))
+        self.assertTrue(isSame(test_res, expected))
+        wind_number.append(time.time()-self.startTime)
+
+    def test_3_polygon_intersection_vertex_in_polygon_concave(self):
+
+        test_res = vipi.vertex_in_polygon(concave_case_first_poly, concave_case_second_poly)
+        expected = []
+
+        for l in mapping(Polygon(concave_case_first_poly).intersection(Polygon(concave_case_second_poly)))['coordinates']:
+            expected= expected + [list((round(x[0], 5),round(x[1], 5))) for x in l[0][:-1]]
+        self.assertTrue(isSame(test_res, expected))
+        wind_number.append(time.time()-self.startTime)
+    
+    def test_4_polygon_intersection_vertex_in_polygon_self_intersecting(self):
+
+        #test_res = polygon_intersection.process_weiler_atherton(no_intersection_first_poly, no_intersection_second_poly)
+        self.assertRaises(TypeError, vipi.vertex_in_polygon(no_intersection_first_poly, no_intersection_second_poly))
+        wind_number.append(time.time()-self.startTime)
 
 def isSame(actual, expected)-> bool:
         actual = [[round(x[0], 5), round(x[1], 5)]for x in actual]
