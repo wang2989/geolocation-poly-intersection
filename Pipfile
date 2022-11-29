@@ -11,6 +11,7 @@ shapely = "==1.8.5.post1"
 selenium = "*"
 matplotlib = "*"
 html-testrunner = "*"
+pillow = "*"
 
 [dev-packages]
 
