@@ -127,7 +127,6 @@ class Test_3_PolygonIntersectionVertex(unittest.TestCase):
         
     def tearDown(self):
         t = time.time()-self.startTime
-        vertex.append(t)
         print('Runtime: %.6f' % (t))
 
     def test_1_polygon_intersection_vertex_in_polygon_inside_case(self):
@@ -171,7 +170,6 @@ class Test_4_draw_chart(unittest.TestCase):
         # Set position of bar on X axis
         br1 = np.arange(len(ray_casting))
         br2 = [x + barWidth for x in br1]
-        br3 = [x + 2 * barWidth for x in br1]
 
         
         # Make the plot
@@ -179,8 +177,6 @@ class Test_4_draw_chart(unittest.TestCase):
                 edgecolor ='grey', label ='rc')
         plt.bar(br2, wind_number, color ='g', width = barWidth,
                 edgecolor ='grey', label ='wd')
-        plt.bar(br3, vertex, color ='b', width = barWidth,
-                edgecolor = 'grey', label = 'vt')
 
         
         # Adding Xticks
