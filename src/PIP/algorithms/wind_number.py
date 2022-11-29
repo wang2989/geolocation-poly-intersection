@@ -37,5 +37,5 @@ def findOverlappingPoints(points, polys):
             if windNumber(p, v)!= 0:
                 res.append(p)
     points = pd.DataFrame([[x[1], x[0]] for x in res], columns=['Latitude','Longitude'])
-    points.to_csv('PIP_columbus_area.csv',index = False)
+    points.to_csv('data/PIP_columbus_area.csv',index = False)
     

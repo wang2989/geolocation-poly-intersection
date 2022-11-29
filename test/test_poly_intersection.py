@@ -155,8 +155,10 @@ class Test_4_draw_chart(unittest.TestCase):
         plt.ylabel('Time(s)', fontweight ='bold', fontsize = 15)
         plt.xticks([r + barWidth for r in range(len(ray_casting))],
                 langs)
+        plt.title('Polygon-Polygon Intersection v1', fontweight='bold', fontsize=24)
         
         plt.legend()
+        plt.savefig('test/graphs/poly_intersection_v1_graph.png')
         plt.show()
 
         plt.close()

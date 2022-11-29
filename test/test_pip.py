@@ -109,7 +109,7 @@ class Test_2_WindNumber(unittest.TestCase):
         
     def tearDown(self):
         t = time.time()-self.startTime
-        print('%s: %.6f' % (self.id(),t))
+        print('Runtime: %.6f' % (t))
     
     def test_wind_number_1_small_size(self):
         time.sleep(1)
@@ -141,8 +141,6 @@ class Test_2_WindNumber(unittest.TestCase):
         time.sleep(1)
         test = pip(columbus_points, columbus_polygons)
         y_actual = test.windNumber()
-        points = pd.DataFrame([[x[0], x[1]] for x in y_actual], columns=['Longitude','Latitude'])
-        points.to_csv('data/PIP_columbus_area.csv',index = False)
         diff =accuracy.get_accuracy(columbus_points, columbus_polygons, y_actual)  
         print(f'Difference between expected result: {diff}\n')
         large_size_cbus_multiple_polygons.append(time.time()-self.startTime)
@@ -154,7 +152,7 @@ class Test_3_rTree(unittest.TestCase):
         
     def tearDown(self):
         t = time.time()-self.startTime
-        print('%s: %.6f' % (self.id(),t))
+        print('Runtime: %.6f' % (t))
         
     def test_improved_1_small_size(self):
         # polys = [Polygon(t) for t in ply]
@@ -224,8 +222,10 @@ class Test_4_draw_chart(unittest.TestCase):
         plt.ylabel('Time(s)', fontweight ='bold', fontsize = 15)
         plt.xticks([r + barWidth for r in range(len(small_size))],
                 langs)
+        plt.title('Point in Polygon', fontweight='bold', fontsize=24)
         
         plt.legend()
+        plt.savefig('test/graphs/pip_graph.png')
         plt.show()
 
         plt.close()

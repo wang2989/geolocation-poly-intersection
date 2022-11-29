@@ -17,12 +17,19 @@ neighborhood_polygon_abs_path = os.path.abspath(os.path.join(current_dir, neighb
 line_list_relative_path = '../data/{INSERT FILE NAME HERE}'
 line_list_abs_path = os.path.abspath(os.path.join(current_dir, line_list_relative_path))
 
-#Creating absolute paths for reports to visualize
+# Creating absolute paths for reports to visualize
 poly_intersection_relative_path = '../../reports/polygon-polygon-intersection-v1.html'
 poly_intersection_abs_path = os.path.abspath(os.path.join(current_dir, poly_intersection_relative_path))
 
 pip_relative_path = '../../reports/point-in-polygon.html'
 pip_abs_path = os.path.abspath(os.path.join(current_dir, pip_relative_path))
+
+# Creating absolute paths for comparison graph images
+poly_intersection_graph_relative_path = '../../test/graphs/poly_intersection_v1_graph.png'
+poly_intersection_graph_abs_path = os.path.abspath(os.path.join(current_dir, poly_intersection_graph_relative_path))
+
+pip_graph_relative_path = '../../test/graphs/pip_graph.png'
+pip_graph_abs_path = os.path.abspath(os.path.join(current_dir, pip_graph_relative_path))
 
 # open keplerGL
 chrome_options = Options()
@@ -40,6 +47,8 @@ driver.switch_to.window("secondtab")
 driver.get("file://" + pip_abs_path)
 
 # Open line simplification report
+
+# Open comparison images
 
 # Open keplerGL for data visualization
 driver.execute_script("window.open('about:blank','fourthtab');")
