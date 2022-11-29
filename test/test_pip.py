@@ -23,7 +23,7 @@ ply3 =[[[-120.91522668758174,37.03968992268706],[-121.02735067562631,35.98837567
        [[-123.02980205324052,39.24888199618645],[-122.15189129718004,38.19034135855964],[-121.36975262359891,39.31066007301397]]
        , [[-120.23644964759379,39.19942031567585],[-118.11350181930217,38.91433976723213],[-120.28433568883335,38.715344605330465],[-121.70495491227662,37.44640255810604]]
        ,[[-119.52301608426491,38.53004176621298],[-119.38859775116038,37.26976643399039],[-118.15511187090418,36.821689307762114]]]
-columbus_poly =[[[-82.94713752299221,40.012085242026195],[-82.98723463591321,39.9740518390705],[-82.98659817380349,39.94478096464229],[-82.946501060882,39.915009398900104],[-82.89749347842276,39.95600294742564],[-82.946501060882,39.96917423012789],[-82.94713752299221,40.012085242026195]]]
+columbus_poly =[[[-83.01069923339561,40.30018997754109],[-83.43169872260194,40.111354894753525],[-82.96392151237318,39.433393748886864],[-82.23552557073084,39.76293606495637],[-82.39590632852361,40.22880073292107],[-83.01069923339561,40.30018997754109]]]
 #test = pip(l, ply)
 
 small_size =[]
@@ -79,6 +79,7 @@ class Test_1_RayCasting(unittest.TestCase):
         time.sleep(1)
         test = pip(points, ply2)
         y_actual = test.rayCasting()
+
         diff =accuracy.get_accuracy(points, ply2, y_actual)
         print(f'Difference between expected result: {diff}')
         large_size.append(time.time()-self.startTime)
@@ -86,18 +87,18 @@ class Test_1_RayCasting(unittest.TestCase):
     def test_ray_casting_3_large_size_columbus_area(self):
         time.sleep(1)
         test = pip(columbus_points, columbus_poly)
-        y_actual =test.rayCasting()  
+        y_actual =test.rayCasting() 
         diff =accuracy.get_accuracy(columbus_points, columbus_poly, y_actual)  
         print(f'Difference between expected result: {diff}')
         large_size_cbus.append(time.time()-self.startTime)
         
-    def test_ray_casting_4_large_size_multiple_polygons(self):
-         time.sleep(1)
-         test = pip(columbus_points, columbus_polygons)
-         y_actual =test.rayCasting() 
-         diff =accuracy.get_accuracy(columbus_points, columbus_polygons, y_actual)  
-         print(f'Difference between expected result: {diff}')
-         large_size_cbus_multiple_polygons.append(time.time()-self.startTime)
+    # def test_ray_casting_4_large_size_multiple_polygons(self):
+    #      time.sleep(1)
+    #      test = pip(columbus_points, columbus_polygons)
+    #      y_actual =test.rayCasting() 
+    #      diff =accuracy.get_accuracy(columbus_points, columbus_polygons, y_actual)  
+    #      print(f'Difference between expected result: {diff}')
+    #      large_size_cbus_multiple_polygons.append(time.time()-self.startTime)
     
 class Test_2_WindNumber(unittest.TestCase):      
     def setUp(self):
@@ -128,21 +129,20 @@ class Test_2_WindNumber(unittest.TestCase):
         time.sleep(1)
         test = pip(columbus_points, columbus_poly)
         y_actual = test.windNumber()
-        points = pd.DataFrame([[x[1], x[0]] for x in y_actual], columns=['Latitude','Longitude'])
-        points.to_csv('PIP_columbus_area.csv',index = False)
+        test.getOverlapping()
         diff =accuracy.get_accuracy(columbus_points, columbus_poly, y_actual)  
         print(f'Difference between expected result: {diff}')
         large_size_cbus.append(time.time()-self.startTime)
         
-    def test_wind_number_4_large_size_columbus_area_multiple_polygons(self):
-        time.sleep(1)
-        test = pip(columbus_points, columbus_polygons)
-        y_actual = test.windNumber()
-        # points = pd.DataFrame([[x[0], x[1]] for x in y_actual], columns=['Latitude','Longitude'])
-        # points.to_csv('PIP_columbus_area.csv',index = False)
-        diff =accuracy.get_accuracy(columbus_points, columbus_polygons, y_actual)  
-        print(f'Difference between expected result: {diff}')
-        large_size_cbus_multiple_polygons.append(time.time()-self.startTime)
+    # def test_wind_number_4_large_size_columbus_area_multiple_polygons(self):
+    #     time.sleep(1)
+    #     test = pip(columbus_points, columbus_polygons)
+    #     y_actual = test.windNumber()
+    #     # points = pd.DataFrame([[x[0], x[1]] for x in y_actual], columns=['Latitude','Longitude'])
+    #     # points.to_csv('PIP_columbus_area.csv',index = False)
+    #     diff =accuracy.get_accuracy(columbus_points, columbus_polygons, y_actual)  
+    #     print(f'Difference between expected result: {diff}')
+    #     large_size_cbus_multiple_polygons.append(time.time()-self.startTime)
 
 class Test_3_rTree(unittest.TestCase):
     
@@ -175,56 +175,57 @@ class Test_3_rTree(unittest.TestCase):
         test =  PipImproved(columbus_poly)
         time.sleep(1)
         y_actual = test.pip(columbus_points)
+
         diff =accuracy.get_accuracy(columbus_points, columbus_poly, y_actual)  
         print(f'Difference between expected result: {diff}')
         large_size_cbus.append(time.time()-self.startTime)
         
-    def test_improved_4_large_size_multiple_polygons(self):
-        test = PipImproved(columbus_polygons)
-        time.sleep(1)
-        y_actual = test.pip(columbus_points)
-        diff =accuracy.get_accuracy(columbus_points, columbus_polygons, y_actual)  
-        print(f'Difference between expected result: {diff}')
-        large_size_cbus_multiple_polygons.append(time.time()-self.startTime)
+    # def test_improved_4_large_size_multiple_polygons(self):
+    #     test = PipImproved(columbus_polygons)
+    #     time.sleep(1)
+    #     y_actual = test.pip(columbus_points)
+    #     diff =accuracy.get_accuracy(columbus_points, columbus_polygons, y_actual)  
+    #     print(f'Difference between expected result: {diff}')
+    #     large_size_cbus_multiple_polygons.append(time.time()-self.startTime)
         
-class Test_4_draw_chart(unittest.TestCase):
-    def setUp(self):
-        self.startTime = time.time()
+# class Test_4_draw_chart(unittest.TestCase):
+#     def setUp(self):
+#         self.startTime = time.time()
         
-    def tearDown(self):
-        t = time.time()-self.startTime
-    def test_draw(self):
-        langs = ['RayCasting', 'WindNumber', 'RTree']
-        barWidth = 0.25
-        fig = plt.subplots(figsize =(12, 8))
+#     def tearDown(self):
+#         t = time.time()-self.startTime
+#     def test_draw(self):
+#         langs = ['RayCasting', 'WindNumber', 'RTree']
+#         barWidth = 0.25
+#         fig = plt.subplots(figsize =(12, 8))
         
-        # Set position of bar on X axis
-        br1 = np.arange(len(small_size))
-        br2 = [x + barWidth for x in br1]
-        br3 = [x + barWidth for x in br2]
-        br4 = [x + barWidth for x in br3]
+#         # Set position of bar on X axis
+#         br1 = np.arange(len(small_size))
+#         br2 = [x + barWidth for x in br1]
+#         br3 = [x + barWidth for x in br2]
+#         br4 = [x + barWidth for x in br3]
         
         
-        # Make the plot
-        plt.bar(br1, small_size, color ='r', width = barWidth,
-                edgecolor ='grey', label ='SmallSize')
-        plt.bar(br2, large_size, color ='g', width = barWidth,
-                edgecolor ='grey', label ='LargeSize')
-        plt.bar(br3, large_size_cbus, color ='y', width = barWidth,
-                edgecolor ='grey', label ='LargeSizeColumbus')
-        plt.bar(br4, large_size_cbus_multiple_polygons, color ='b', width = barWidth,
-        edgecolor ='grey', label ='ColumbusMultiPolys')
+#         # Make the plot
+#         plt.bar(br1, small_size, color ='r', width = barWidth,
+#                 edgecolor ='grey', label ='SmallSize')
+#         plt.bar(br2, large_size, color ='g', width = barWidth,
+#                 edgecolor ='grey', label ='LargeSize')
+#         plt.bar(br3, large_size_cbus, color ='y', width = barWidth,
+#                 edgecolor ='grey', label ='LargeSizeColumbus')
+#         plt.bar(br4, large_size_cbus_multiple_polygons, color ='b', width = barWidth,
+#         edgecolor ='grey', label ='ColumbusMultiPolys')
         
-        # Adding Xticks
-        plt.xlabel('Algorithms', fontweight ='bold', fontsize = 15)
-        plt.ylabel('Time(s)', fontweight ='bold', fontsize = 15)
-        plt.xticks([r + barWidth for r in range(len(small_size))],
-                langs)
+#         # Adding Xticks
+#         plt.xlabel('Algorithms', fontweight ='bold', fontsize = 15)
+#         plt.ylabel('Time(s)', fontweight ='bold', fontsize = 15)
+#         plt.xticks([r + barWidth for r in range(len(small_size))],
+#                 langs)
         
-        plt.legend()
-        plt.show()
+#         plt.legend()
+#         plt.show()
 
-        plt.close()
+#         plt.close()
 
 
 unittest.main()
