@@ -32,9 +32,8 @@ sh runfile.sh
 ```
 
 ## Usage
-After running the runfile.sh file, the browser should open six tabs. The first four will be reports showing performance comparisons of the various algorithms. The fifth tab will display the graphs of these runtime comparisons. The final tab is a KeplerGL demo with the relevant datasets visualized for the user to interact with.
+After running the runfile.sh file, the browser should open four tabs. The first two will be reports showing performance comparisons of the various algorithms. The third tab will display the graphs of these runtime comparisons. The final tab is a KeplerGL demo with the relevant datasets visualized for the user to interact with.
 
-### EXPERIMENTAL
 Should the user want to change the area used to calculate overlapping polygons, they can open kepler.gl/demo in a web browser draw a relevant polygon within the bounds of Ohio. Then, the user can right click the polygon and select 'Copy Geometry'. The user should then run the following commands to reproduce the reports and visualizations with the polygon.
 
 ```
@@ -42,4 +41,7 @@ python3 src/create_new_polygon_for_test.py '[COPIED GEOMETRY VALUE]'
 sh runfile.sh
 ```
 Take note of the quotations surrounding [COPIED GEOMETRIC VALUE]
+
+## Demo
+go.osu.edu/group3dbmsvideo
 
