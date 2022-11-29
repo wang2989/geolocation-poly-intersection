@@ -7,7 +7,7 @@ from selenium.webdriver.chrome.options import Options
 
 current_dir = os.path.abspath(__file__)
 
-crash_stats_relative_path = '../../data/cleaned_crash_stats.csv'
+crash_stats_relative_path = '../../data/PIP_columbus_area.csv'
 crash_stats_abs_path = os.path.abspath(os.path.join(current_dir, crash_stats_relative_path))
 
 neighborhood_polygon_relative_path = '../../data/cleaned_polygon_geojson.json'
@@ -15,15 +15,6 @@ neighborhood_polygon_abs_path = os.path.abspath(os.path.join(current_dir, neighb
 
 line_list_relative_path = '../data/{INSERT FILE NAME HERE}'
 line_list_abs_path = os.path.abspath(os.path.join(current_dir, line_list_relative_path))
-
-# run point-in-polygon tests
-print("placeholder for point-in-polygon")
-
-# run polygon-polygon intersection tests
-print("placeholder for polygon-polygon intersection")
-
-# run line simplification tests
-print("line simplification placeholder")
 
 # open keplerGL
 chrome_options = Options()
