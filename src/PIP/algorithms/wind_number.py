@@ -1,7 +1,5 @@
-p1 = (-122.0045, 40.0335)
-p2 = (-122.0625, 39.60383)
-p3 = (-122.992, 38.90133)
-v=[[-123.15532480599389,39.628538026418425],[-119.0541702886981,39.40845421648897],[-122.53717977729988,37.92347617009539],[-123.6189335775142,39.160027074679334],[-123.15532480599389,39.628538026418425]]
+import pandas as pd
+
 def pip(points: list, polys: list) -> list:
     res ={}
     for point in points: 
@@ -32,7 +30,12 @@ def windNumber(p: tuple, v: list) -> int:
 def isLeft(p0, p1, p2) -> int:
     return ((p1[0]-p0[0])*(p2[1]-p0[1])-(p2[0]-p0[0])*(p1[1]-p0[1]))
 
-# print(windNumber(p1, v))
-# print(windNumber(p2, v))
-# print(windNumber(p3, v))
-
+def findOverlappingPoints(points, polys):
+    res = []
+    for p in points:
+        for v in polys:
+            if windNumber(p, v)!= 0:
+                res.append(p)
+    points = pd.DataFrame([[x[1], x[0]] for x in res], columns=['Latitude','Longitude'])
+    points.to_csv('PIP_columbus_area.csv',index = False)
+    
