@@ -8,14 +8,18 @@ from selenium.webdriver.chrome.options import Options
 current_dir = os.path.abspath(__file__)
 
 # Creating absolute paths for data to visualize
-crash_stats_relative_path = '../../data/PIP_columbus_area.csv'
+crash_stats_relative_path = '../../data/cleaned_crash_stats.csv'
 crash_stats_abs_path = os.path.abspath(os.path.join(current_dir, crash_stats_relative_path))
 
-neighborhood_polygon_relative_path = '../../data/cleaned_polygon_geojson.json'
+points_in_poly_list_relative_path = '../../data/PIP_columbus_area.csv'
+points_in_poly_list_abs_path = os.path.abspath(os.path.join(current_dir, points_in_poly_list_relative_path))
+
+neighborhood_polygon_relative_path = '../../data/user_defined_polygon.json'
 neighborhood_polygon_abs_path = os.path.abspath(os.path.join(current_dir, neighborhood_polygon_relative_path))
 
 line_list_relative_path = '../data/{INSERT FILE NAME HERE}'
 line_list_abs_path = os.path.abspath(os.path.join(current_dir, line_list_relative_path))
+
 
 # Creating absolute paths for reports to visualize
 poly_intersection_relative_path = '../../reports/polygon-polygon-intersection-v1.html'
@@ -24,12 +28,11 @@ poly_intersection_abs_path = os.path.abspath(os.path.join(current_dir, poly_inte
 pip_relative_path = '../../reports/point-in-polygon.html'
 pip_abs_path = os.path.abspath(os.path.join(current_dir, pip_relative_path))
 
-# Creating absolute paths for comparison graph images
-poly_intersection_graph_relative_path = '../../test/graphs/poly_intersection_v1_graph.png'
-poly_intersection_graph_abs_path = os.path.abspath(os.path.join(current_dir, poly_intersection_graph_relative_path))
 
-pip_graph_relative_path = '../../test/graphs/pip_graph.png'
-pip_graph_abs_path = os.path.abspath(os.path.join(current_dir, pip_graph_relative_path))
+# Creating absolute path for comparison graphs
+concat_graphs_relative_path = '../../test/graphs/concat_graphs.png'
+concat_graphs_abs_path = os.path.abspath(os.path.join(current_dir, concat_graphs_relative_path))
+
 
 # open keplerGL
 chrome_options = Options()
@@ -49,18 +52,23 @@ driver.get("file://" + pip_abs_path)
 # Open line simplification report
 
 # Open comparison images
-
-# Open keplerGL for data visualization
 driver.execute_script("window.open('about:blank','fourthtab');")
 driver.switch_to.window("fourthtab")
+driver.get("file://" + concat_graphs_abs_path)
+
+# Open keplerGL for data visualization
+driver.execute_script("window.open('about:blank','fifthtab');")
+driver.switch_to.window("fifthtab")
 driver.get("https://kepler.gl/demo")
 
 # drop kepler datasets into browser
+# adding raw crash stats
 file_drop = WebDriverWait(driver, 10).until(
     EC.presence_of_element_located((By.CSS_SELECTOR, "input.upload-button-input[type=file]"))
 )
 file_drop.send_keys(crash_stats_abs_path)
 
+# adding neighborhood polygons
 add_data_button = WebDriverWait(driver, 10).until(
     EC.presence_of_element_located((By.CSS_SELECTOR, ".add-data-button"))
 )
@@ -69,4 +77,15 @@ add_data_button.click()
 additional_file_drop = WebDriverWait(driver, 10).until(
     EC.presence_of_element_located((By.CSS_SELECTOR, "input.upload-button-input[type=file]"))
 )
-additional_file_drop.send_keys(neighborhood_polygon_abs_path)
+additional_file_drop.send_keys(neighborhood_polygon_abs_path) # 
+
+# adding filtered points in the designated poly
+add_data_button = WebDriverWait(driver, 10).until(
+    EC.presence_of_element_located((By.CSS_SELECTOR, ".add-data-button"))
+)
+add_data_button.click()
+
+additional_file_drop = WebDriverWait(driver, 10).until(
+    EC.presence_of_element_located((By.CSS_SELECTOR, "input.upload-button-input[type=file]"))
+)
+additional_file_drop.send_keys(points_in_poly_list_abs_path)

@@ -81,7 +81,7 @@ class Test_2_PolygonIntersectionRayCasting(unittest.TestCase):
         
     def tearDown(self):
         t = time.time()-self.startTime
-        print('%s: %.6f' % (self.id(),t))
+        print('Runtime: %.6f' % (t))
 
     def test_1_polygon_intersection_ray_casting_inside_case(self):
 
@@ -159,9 +159,6 @@ class Test_4_draw_chart(unittest.TestCase):
         
         plt.legend()
         plt.savefig('test/graphs/poly_intersection_v1_graph.png')
-        plt.show()
-
-        plt.close()
 
 def isSame(actual, expected)-> bool:
         actual = [[round(x[0], 5), round(x[1], 5)]for x in actual]

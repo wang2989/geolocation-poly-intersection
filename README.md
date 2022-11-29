@@ -38,7 +38,8 @@ After running the runfile.sh file, the browser should open six tabs. The first f
 Should the user want to change the area used to calculate overlapping polygons, they can open kepler.gl/demo in a web browser draw a relevant polygon within the bounds of Ohio. Then, the user can right click the polygon and select 'Copy Geometry'. The user should then run the following commands to reproduce the reports and visualizations with the polygon.
 
 ```
-python3 src/create_new_polygon_for_test.py [COPIED GEOMETRY VALUE]
+python3 src/create_new_polygon_for_test.py '[COPIED GEOMETRY VALUE]'
 sh runfile.sh
 ```
+Take note of the quotations surrounding [COPIED GEOMETRIC VALUE]
 
