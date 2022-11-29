@@ -1,6 +1,6 @@
 from PIL import Image
 
-graph1 = Image.open('test/graphs/poly_intersection_v1_graph.png')
+graph1 = Image.open('test/graphs/poly_intersection_graph.png')
 graph2 = Image.open('test/graphs/pip_graph.png')
 
 finalImage = Image.new('RGB', (graph1.width, graph1.height + graph2.height))

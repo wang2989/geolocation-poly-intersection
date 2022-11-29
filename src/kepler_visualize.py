@@ -22,7 +22,7 @@ line_list_abs_path = os.path.abspath(os.path.join(current_dir, line_list_relativ
 
 
 # Creating absolute paths for reports to visualize
-poly_intersection_relative_path = '../../reports/polygon-polygon-intersection-v1.html'
+poly_intersection_relative_path = '../../reports/polygon-polygon-intersection.html'
 poly_intersection_abs_path = os.path.abspath(os.path.join(current_dir, poly_intersection_relative_path))
 
 pip_relative_path = '../../reports/point-in-polygon.html'
