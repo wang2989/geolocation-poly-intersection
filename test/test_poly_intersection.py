@@ -118,16 +118,7 @@ class Test_2_PolygonIntersectionRayCasting(unittest.TestCase):
         self.assertTrue(isSame(test_res, expected))
         ray_casting.append(time.time()-self.startTime)  
 
-class Test_3_multiple_polygons(unittest.TestCase):
-    def setUp(self):
-        self.startTime = time.time()
-        
-    def tearDown(self):
-        t = time.time()-self.startTime
-        
-    def test_1_rc(self):
-        pass
-class Test_4_draw_chart(unittest.TestCase):
+class Test_3_draw_chart(unittest.TestCase):
     def setUp(self):
         self.startTime = time.time()
         
