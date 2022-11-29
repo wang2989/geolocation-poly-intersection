@@ -7,6 +7,8 @@ from shapely.geometry import Polygon, mapping
 import math
 import matplotlib.pyplot as plt
 import numpy as np
+import HtmlTestRunner
+
 ray_casting = []
 wind_number = []
 # inner case
@@ -30,13 +32,14 @@ self_intersecting_case_second = [[-118.14789577571362,39.25717331572768],[-117.8
 # completely inside case
 completely_inside_case_first = [[-113.96516328673505,37.97388222420227],[-114.86248742561979,37.69454255373925],[-114.61359459877593,36.77153806493362],[-113.44772819934865,36.47716675906124],[-112.94339273442792,36.96018241617512],[-113.07438895908288,37.606383533581784],[-113.76866894975281,38.00485464243119]]
 completely_inside_case_second = [[-114.4956979965866,37.63751043138527],[-114.35160214946644,37.080461177813085],[-113.38223008702141,37.22141486120871],[-113.72937008235637,37.715270640525134]]
+
 class Test_1_PolygonIntersectionWindNumber(unittest.TestCase):
     def setUp(self):
         self.startTime = time.time()
         
     def tearDown(self):
         t = time.time()-self.startTime
-        print('%s: %.6f' % (self.id(),t))
+        print('Runtime: %.6f' % (t))
 
     def test_1_polygon_intersection_wind_number_inside_case(self):
         test_res = polygon_intersection.process_weiler_atherton(inside_case_first_poly, inside_case_second_poly, 0 )
@@ -179,16 +182,7 @@ def floatEqual(f1, f2):
     else:
         return False
 
-unittest.main()
-#expected = [list((round(x[0], 5),round(x[1], 5)))for x in list(mapping(Polygon(concave_case_first_poly).intersection(Polygon(concave_case_second_poly)))[0])[:-1]]
-# expected = []
-# for l in mapping(Polygon(concave_case_first_poly).intersection(Polygon(concave_case_second_poly))['coordinates']):
-#     expected = expected+l[:-1]     
-# print(expected)
-# expected = []
-# for l in mapping(Polygon(concave_case_first_poly).intersection(Polygon(concave_case_second_poly)))['coordinates']:
-#     expected= expected + [list((round(x[0], 5),round(x[1], 5))) for x in l[0][:-1]]
-# print(len(expected))
+unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(combine_reports=True, report_name="polygon-polygon-intersection-v1", add_timestamp=False, report_title="Polygon-Polygon Intersection v1 Report"))
 
     
 
