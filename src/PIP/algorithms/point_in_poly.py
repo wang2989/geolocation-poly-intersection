@@ -12,5 +12,8 @@ class PointInPoly:
     
     def windNumber(self) -> list:
         return wn.pip(self.points, self.polys)
+    
+    def getOverlapping(self)->list:
+        return wn.findOverlappingPoints(self.points, self.polys)
 
 
