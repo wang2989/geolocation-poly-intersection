@@ -12,6 +12,8 @@ import HtmlTestRunner
 
 ray_casting = []
 wind_number = []
+vertex = []
+
 # inner case
 inside_case_first_poly = [[0,0], [0, 2], [4,2], [4, 0]]
 inside_case_second_poly  = [[0,0], [0, 2], [2,2], [2, 0]]
@@ -119,7 +121,43 @@ class Test_2_PolygonIntersectionRayCasting(unittest.TestCase):
         self.assertTrue(isSame(test_res, expected))
         ray_casting.append(time.time()-self.startTime)  
 
-class Test_3_draw_chart(unittest.TestCase):
+class Test_3_PolygonIntersectionVertex(unittest.TestCase):
+    def setUp(self):
+        self.startTime = time.time()
+        
+    def tearDown(self):
+        t = time.time()-self.startTime
+        print('Runtime: %.6f' % (t))
+
+    def test_1_polygon_intersection_vertex_in_polygon_inside_case(self):
+        test_res = vipi.vertex_in_polygon(inside_case_first_poly, inside_case_second_poly)
+        expected = getExpected(Polygon(inside_case_first_poly), Polygon(inside_case_second_poly))
+        self.assertTrue(isSame(test_res, expected))
+        vertex.append(time.time()-self.startTime)       
+         
+    def test_2_polygon_intersection_vertex_in_polygon_convex(self):
+        test_res = vipi.vertex_in_polygon(convex_case_first_poly, convex_case_second_poly)
+        expected = getExpected(Polygon(convex_case_first_poly), Polygon(convex_case_second_poly))
+        self.assertTrue(isSame(test_res, expected))
+        vertex.append(time.time()-self.startTime)
+
+    def test_3_polygon_intersection_vertex_in_polygon_concave(self):
+
+        test_res = vipi.vertex_in_polygon(concave_case_first_poly, concave_case_second_poly)
+        expected = []
+
+        for l in mapping(Polygon(concave_case_first_poly).intersection(Polygon(concave_case_second_poly)))['coordinates']:
+            expected= expected + [list((round(x[0], 5),round(x[1], 5))) for x in l[0][:-1]]
+        self.assertTrue(isSame(test_res, expected))
+        vertex.append(time.time()-self.startTime)
+    
+    def test_4_polygon_intersection_vertex_in_polygon_self_intersecting(self):
+
+        #test_res = polygon_intersection.process_weiler_atherton(no_intersection_first_poly, no_intersection_second_poly)
+        self.assertRaises(TypeError, vipi.vertex_in_polygon(no_intersection_first_poly, no_intersection_second_poly))
+        vertex.append(time.time()-self.startTime)
+
+class Test_4_draw_chart(unittest.TestCase):
     def setUp(self):
         self.startTime = time.time()
         
@@ -133,6 +171,7 @@ class Test_3_draw_chart(unittest.TestCase):
         # Set position of bar on X axis
         br1 = np.arange(len(ray_casting))
         br2 = [x + barWidth for x in br1]
+        br3 = [x + 2 * barWidth for x in br1]
 
         
         # Make the plot
@@ -140,6 +179,8 @@ class Test_3_draw_chart(unittest.TestCase):
                 edgecolor ='grey', label ='rc')
         plt.bar(br2, wind_number, color ='g', width = barWidth,
                 edgecolor ='grey', label ='wd')
+        plt.bar(br3, vertex, color ='b', width = barWidth,
+                edgecolor = 'grey', label = 'vt')
 
         
         # Adding Xticks
@@ -151,42 +192,6 @@ class Test_3_draw_chart(unittest.TestCase):
         
         plt.legend()
         plt.savefig('test/graphs/poly_intersection_v1_graph.png')
-
-class Test_5_PolygonIntersectionWindNumber(unittest.TestCase):
-    def setUp(self):
-        self.startTime = time.time()
-        
-    def tearDown(self):
-        t = time.time()-self.startTime
-        print('Runtime: %.6f' % (t))
-
-    def test_1_polygon_intersection_vertex_in_polygon_inside_case(self):
-        test_res = vipi.vertex_in_polygon(inside_case_first_poly, inside_case_second_poly)
-        expected = getExpected(Polygon(inside_case_first_poly), Polygon(inside_case_second_poly))
-        self.assertTrue(isSame(test_res, expected))
-        wind_number.append(time.time()-self.startTime)       
-         
-    def test_2_polygon_intersection_vertex_in_polygon_convex(self):
-        test_res = vipi.vertex_in_polygon(convex_case_first_poly, convex_case_second_poly)
-        expected = getExpected(Polygon(convex_case_first_poly), Polygon(convex_case_second_poly))
-        self.assertTrue(isSame(test_res, expected))
-        wind_number.append(time.time()-self.startTime)
-
-    def test_3_polygon_intersection_vertex_in_polygon_concave(self):
-
-        test_res = vipi.vertex_in_polygon(concave_case_first_poly, concave_case_second_poly)
-        expected = []
-
-        for l in mapping(Polygon(concave_case_first_poly).intersection(Polygon(concave_case_second_poly)))['coordinates']:
-            expected= expected + [list((round(x[0], 5),round(x[1], 5))) for x in l[0][:-1]]
-        self.assertTrue(isSame(test_res, expected))
-        wind_number.append(time.time()-self.startTime)
-    
-    def test_4_polygon_intersection_vertex_in_polygon_self_intersecting(self):
-
-        #test_res = polygon_intersection.process_weiler_atherton(no_intersection_first_poly, no_intersection_second_poly)
-        self.assertRaises(TypeError, vipi.vertex_in_polygon(no_intersection_first_poly, no_intersection_second_poly))
-        wind_number.append(time.time()-self.startTime)
 
 def isSame(actual, expected)-> bool:
         actual = [[round(x[0], 5), round(x[1], 5)]for x in actual]

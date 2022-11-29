@@ -11,9 +11,9 @@
         <div class="row">
             <div class="col-xs-12">
                 <h2 class="text-capitalize">Polygon-Polygon Intersection v1 Report</h2>
-                <p class='attribute'><strong>Start Time: </strong>2022-11-29 01:38:33</p>
-                <p class='attribute'><strong>Duration: </strong>242 ms</p>
-                <p class='attribute'><strong>Summary: </strong>Total: 11, Pass: 11</p>
+                <p class='attribute'><strong>Start Time: </strong>2022-11-29 01:46:59</p>
+                <p class='attribute'><strong>Duration: </strong>256 ms</p>
+                <p class='attribute'><strong>Summary: </strong>Total: 15, Pass: 12, Error: 3</p>
             </div>
         </div>
         <div class="row">
@@ -37,7 +37,7 @@
                             </td>
                         </tr>
                         <tr style="display:none;">
-                            <td class="col-xs-9" colspan="3"><p>Runtime: 0.001975
+                            <td class="col-xs-9" colspan="3"><p>Runtime: 0.001991
 </p>
                             </td>
                         </tr>
@@ -51,7 +51,7 @@
                             </td>
                         </tr>
                         <tr style="display:none;">
-                            <td class="col-xs-9" colspan="3"><p>Runtime: 0.002419
+                            <td class="col-xs-9" colspan="3"><p>Runtime: 0.002630
 </p>
                             </td>
                         </tr>
@@ -65,7 +65,7 @@
                             </td>
                         </tr>
                         <tr style="display:none;">
-                            <td class="col-xs-9" colspan="3"><p>Runtime: 0.008825
+                            <td class="col-xs-9" colspan="3"><p>Runtime: 0.009080
 </p>
                             </td>
                         </tr>
@@ -79,7 +79,7 @@
                             </td>
                         </tr>
                         <tr style="display:none;">
-                            <td class="col-xs-9" colspan="3"><p>Runtime: 0.001326
+                            <td class="col-xs-9" colspan="3"><p>Runtime: 0.001340
 </p>
                             </td>
                         </tr>
@@ -93,7 +93,7 @@
                             </td>
                         </tr>
                         <tr style="display:none;">
-                            <td class="col-xs-9" colspan="3"><p>Runtime: 0.004463
+                            <td class="col-xs-9" colspan="3"><p>Runtime: 0.004374
 </p>
                             </td>
                         </tr>
@@ -127,7 +127,7 @@
                             </td>
                         </tr>
                         <tr style="display:none;">
-                            <td class="col-xs-9" colspan="3"><p>Runtime: 0.001547
+                            <td class="col-xs-9" colspan="3"><p>Runtime: 0.001726
 </p>
                             </td>
                         </tr>
@@ -141,7 +141,7 @@
                             </td>
                         </tr>
                         <tr style="display:none;">
-                            <td class="col-xs-9" colspan="3"><p>Runtime: 0.002323
+                            <td class="col-xs-9" colspan="3"><p>Runtime: 0.002548
 </p>
                             </td>
                         </tr>
@@ -155,7 +155,7 @@
                             </td>
                         </tr>
                         <tr style="display:none;">
-                            <td class="col-xs-9" colspan="3"><p>Runtime: 0.008876
+                            <td class="col-xs-9" colspan="3"><p>Runtime: 0.009156
 </p>
                             </td>
                         </tr>
@@ -169,7 +169,7 @@
                             </td>
                         </tr>
                         <tr style="display:none;">
-                            <td class="col-xs-9" colspan="3"><p>Runtime: 0.001413
+                            <td class="col-xs-9" colspan="3"><p>Runtime: 0.001384
 </p>
                             </td>
                         </tr>
@@ -183,13 +183,13 @@
                             </td>
                         </tr>
                         <tr style="display:none;">
-                            <td class="col-xs-9" colspan="3"><p>Runtime: 0.004436
+                            <td class="col-xs-9" colspan="3"><p>Runtime: 0.004537
 </p>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="3">
-                                Total: 5, Pass: 5 -- Duration: 18 ms
+                                Total: 5, Pass: 5 -- Duration: 19 ms
                             </td>
                         </tr>
                     </tbody>
@@ -201,7 +201,101 @@
                 <table class='table table-hover table-responsive'>
                     <thead>
                         <tr>
-                            <th>__main__.Test_3_draw_chart</th>
+                            <th>__main__.Test_3_PolygonIntersectionVertex</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_1_polygon_intersection_vertex_in_polygon_inside_case</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>Runtime: 0.000187
+</p><p style="color:maroon;">TypeError: 'bool' object is not iterable</p><p style="color:maroon;">Traceback (most recent call last):
+  File "test/test_poly_intersection.py", line 135, in test_1_polygon_intersection_vertex_in_polygon_inside_case
+    self.assertTrue(isSame(test_res, expected))
+  File "test/test_poly_intersection.py", line 197, in isSame
+    actual = [[round(x[0], 5), round(x[1], 5)]for x in actual]
+TypeError: 'bool' object is not iterable
+</p>
+                            </td>
+                        </tr>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_2_polygon_intersection_vertex_in_polygon_convex</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>Runtime: 0.000201
+</p><p style="color:maroon;">TypeError: 'bool' object is not iterable</p><p style="color:maroon;">Traceback (most recent call last):
+  File "test/test_poly_intersection.py", line 141, in test_2_polygon_intersection_vertex_in_polygon_convex
+    self.assertTrue(isSame(test_res, expected))
+  File "test/test_poly_intersection.py", line 197, in isSame
+    actual = [[round(x[0], 5), round(x[1], 5)]for x in actual]
+TypeError: 'bool' object is not iterable
+</p>
+                            </td>
+                        </tr>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_3_polygon_intersection_vertex_in_polygon_concave</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>Runtime: 0.000440
+</p><p style="color:maroon;">TypeError: 'bool' object is not iterable</p><p style="color:maroon;">Traceback (most recent call last):
+  File "test/test_poly_intersection.py", line 151, in test_3_polygon_intersection_vertex_in_polygon_concave
+    self.assertTrue(isSame(test_res, expected))
+  File "test/test_poly_intersection.py", line 197, in isSame
+    actual = [[round(x[0], 5), round(x[1], 5)]for x in actual]
+TypeError: 'bool' object is not iterable
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_4_polygon_intersection_vertex_in_polygon_self_intersecting</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>Runtime: 0.000047
+</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 4, Pass: 1, Error: 3 -- Duration: 1 ms
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>__main__.Test_4_draw_chart</th>
                             <th>Status</th>
                             <th></th>
                         </tr>
@@ -217,7 +311,7 @@
                         </tr>
                         <tr>
                             <td colspan="3">
-                                Total: 1, Pass: 1 -- Duration: 204 ms
+                                Total: 1, Pass: 1 -- Duration: 215 ms
                             </td>
                         </tr>
                     </tbody>
